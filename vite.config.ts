@@ -5,7 +5,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    host: process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost',
+    host: '0.0.0.0',
+    allowedHosts: ['purchase-order-v48d.onrender.com', 'localhost', '127.0.0.1'],
   },
   preview: {
     port: 3000,
