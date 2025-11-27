@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { authApi } from '../services/api';
 import toast from 'react-hot-toast';
 
@@ -42,16 +42,6 @@ const Login: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleDemoLogin = async () => {
-    setUsername('admin');
-    setPassword('admin123');
-    // Auto-submit the form with demo credentials
-    setTimeout(() => {
-      const form = document.querySelector('form') as HTMLFormElement;
-      if (form) form.dispatchEvent(new Event('submit', { bubbles: true }));
-    }, 100);
   };
 
   return (
@@ -126,33 +116,6 @@ const Login: React.FC = () => {
               {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
-
-          {/* Demo Login */}
-          <div className="mt-6 pt-6 border-t border-neutral-200">
-            <p className="text-sm text-neutral-600 text-center mb-3">
-              Demo account (Development)
-            </p>
-            <button
-              onClick={handleDemoLogin}
-              className="w-full bg-neutral-100 text-neutral-900 font-medium py-2 rounded-lg
-                hover:bg-neutral-200 transition duration-200"
-            >
-              Use Demo Credentials
-            </button>
-          </div>
-
-          {/* Signup Link */}
-          <div className="mt-6 text-center">
-            <p className="text-neutral-600 text-sm">
-              Don't have an account?{' '}
-              <Link
-                to="/signup"
-                className="text-primary-600 font-medium hover:text-primary-700 transition"
-              >
-                Sign up here
-              </Link>
-            </p>
-          </div>
         </div>
 
         {/* Footer */}
