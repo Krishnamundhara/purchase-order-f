@@ -10,10 +10,25 @@ const formSchema = z.object({
   party_name: z.string().min(1, 'Party name is required'),
   broker: z.string().optional(),
   mill: z.string().optional(),
-  weight: z.coerce.number().positive('Weight must be positive').optional().or(z.literal('')),
-  bags: z.coerce.number().int().positive('Bags must be positive').optional().or(z.literal('')),
+  weight: z.string().optional().transform(val => {
+    if (!val || val === '') return undefined;
+    const num = Number(val);
+    if (isNaN(num) || num <= 0) return null;
+    return num;
+  }).refine(val => val === undefined || val !== null, 'Weight must be positive'),
+  bags: z.string().optional().transform(val => {
+    if (!val || val === '') return undefined;
+    const num = Number(val);
+    if (isNaN(num) || num <= 0 || !Number.isInteger(num)) return null;
+    return num;
+  }).refine(val => val === undefined || val !== null, 'Bags must be a positive integer'),
   product: z.string().optional(),
-  rate: z.coerce.number().positive('Rate must be positive').optional().or(z.literal('')),
+  rate: z.string().optional().transform(val => {
+    if (!val || val === '') return undefined;
+    const num = Number(val);
+    if (isNaN(num) || num <= 0) return null;
+    return num;
+  }).refine(val => val === undefined || val !== null, 'Rate must be positive'),
   terms_and_conditions: z.string().optional(),
 });
 
@@ -65,9 +80,9 @@ const POForm: React.FC<POFormProps> = ({
     try {
       await onSubmit({
         ...data,
-        weight: data.weight ? Number(data.weight) : undefined,
-        bags: data.bags ? Number(data.bags) : undefined,
-        rate: data.rate ? Number(data.rate) : undefined,
+        weight: data.weight,
+        bags: data.bags,
+        rate: data.rate,
       } as Omit<PurchaseOrder, 'id' | 'created_at' | 'updated_at'>);
     } catch (err) {
       console.error('Form submission error:', err);

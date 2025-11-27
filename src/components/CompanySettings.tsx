@@ -12,15 +12,15 @@ interface CompanySettingsProps {
 const CompanySettings: React.FC<CompanySettingsProps> = ({ isOpen, onClose, onSave }) => {
   const [profile, setProfile] = useState<CompanyProfile>({
     companyName: '',
-    companyLogo: '',
-    address: '',
-    phone: '',
-    email: '',
-    gstNumber: '',
-    bankAccountNumber: '',
-    bankName: '',
-    ifscCode: '',
-    branchName: '',
+    companyLogo: undefined,
+    address: undefined,
+    phone: undefined,
+    email: undefined,
+    gstNumber: undefined,
+    bankAccountNumber: undefined,
+    bankName: undefined,
+    ifscCode: undefined,
+    branchName: undefined,
   });
 
   const [loading, setLoading] = useState(false);

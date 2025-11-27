@@ -3,7 +3,25 @@ import { PurchaseOrder, ApiResponse, CompanyProfile } from '../types/index';
 
 const api = axios.create({
   baseURL: (import.meta as any).env.VITE_API_URL || 'http://localhost:4000/api',
+  withCredentials: true,
 });
+
+export const authApi = {
+  signup: (data: { username: string; email: string; password: string; full_name?: string }) =>
+    api.post<ApiResponse<any>>('/auth/signup', data),
+
+  login: (username: string, password: string) =>
+    api.post<ApiResponse<any>>('/auth/login', { username, password }),
+
+  logout: () =>
+    api.post<ApiResponse<any>>('/auth/logout'),
+
+  getMe: () =>
+    api.get<ApiResponse<any>>('/auth/me'),
+
+  checkStatus: () =>
+    api.get<any>('/auth/status'),
+};
 
 export const purchaseOrdersApi = {
   list: (q: string = '', page: number = 1, limit: number = 10) =>

@@ -47,16 +47,16 @@ const EditPO: React.FC = () => {
       if (res.data.success) {
         toast.success('Purchase order updated successfully');
         navigate('/');
+      } else {
+        toast.error(res.data.error || 'Failed to update purchase order');
       }
     } catch (err: any) {
-      const errorMessage = err.response?.data?.error;
+      const errorMessage = err.response?.data?.error || err.message;
 
-      if (errorMessage === 'Order number already exists') {
+      if (errorMessage && errorMessage.includes('Order number already exists')) {
         setOrderNumberError(errorMessage);
-        toast.error(errorMessage);
-      } else {
-        toast.error(errorMessage || 'Failed to update purchase order');
       }
+      toast.error(errorMessage || 'Failed to update purchase order');
     } finally {
       setIsSaving(false);
     }

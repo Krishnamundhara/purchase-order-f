@@ -5,6 +5,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
+    host: process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost',
+  },
+  preview: {
+    port: 3000,
+    host: '0.0.0.0',
   },
   build: {
     outDir: 'dist',

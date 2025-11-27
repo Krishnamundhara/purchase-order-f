@@ -20,16 +20,16 @@ const CreatePO: React.FC = () => {
       if (res.data.success) {
         toast.success('Purchase order created successfully');
         navigate('/');
+      } else {
+        toast.error(res.data.error || 'Failed to create purchase order');
       }
     } catch (err: any) {
-      const errorMessage = err.response?.data?.error;
+      const errorMessage = err.response?.data?.error || err.message;
 
-      if (errorMessage === 'Order number already exists') {
+      if (errorMessage && errorMessage.includes('Order number already exists')) {
         setOrderNumberError(errorMessage);
-        toast.error(errorMessage);
-      } else {
-        toast.error(errorMessage || 'Failed to create purchase order');
       }
+      toast.error(errorMessage || 'Failed to create purchase order');
     } finally {
       setIsLoading(false);
     }

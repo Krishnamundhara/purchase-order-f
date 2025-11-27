@@ -16,10 +16,10 @@ export interface PurchaseOrder {
 
 export interface CompanyProfile {
   companyName: string;
-  companyLogo: string; // base64 or URL
-  address: string;
-  phone: string;
-  email: string;
+  companyLogo?: string; // base64 or URL
+  address?: string;
+  phone?: string;
+  email?: string;
   gstNumber?: string;
   bankAccountNumber?: string;
   bankName?: string;

@@ -63,20 +63,14 @@ const POPreview = forwardRef<POPreviewHandle, POPreviewProps>(({ po }, ref) => {
   // Expose downloadPDF to parent component
   useImperativeHandle(ref, () => ({
     downloadPDF
-  }), [po.order_number]);
+  }), [po.order_number, po.weight, po.rate]);
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen bg-gray-200 p-2">
       {/* A4 Half Page Preview */}
       <div
         id="po-preview-content"
-        className="w-full max-w-[210mm] bg-white text-neutral-900 shadow-2xl"
-        style={{ 
-            fontFamily: 'Arial, sans-serif',
-            padding: '12px',
-          margin: '0 auto',
-          pageBreakAfter: 'always'
-        }}
+        className="w-full max-w-[210mm] bg-white text-neutral-900 shadow-2xl p-3 mx-auto"
       >
       {/* Header with Logo and Company Info */}
       <div className="mb-2 border-b border-neutral-800 pb-2">
